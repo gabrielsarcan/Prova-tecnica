@@ -6,8 +6,8 @@ Esta aplicação web foi desenvolvida como solução para o desafio técnico da 
 A aplicação foi construída com foco em boas práticas de engenharia de software, incluindo a aplicação de Test-Driven Development (TDD) para regras críticas de negócio e uma arquitetura em camadas.
 
 ## 🚀 Acesso à Aplicação (Deploy)
-- **Aplicação Web:** [INSERIR_LINK_AQUI]
-- **Documentação da API (Swagger):** [INSERIR_LINK_AQUI]/api/docs
+- **Aplicação Web:** [https://document-manager-6lq1.onrender.com](https://document-manager-6lq1.onrender.com)
+- **Documentação da API (Swagger):** [https://prova-tecnica-1.onrender.com/api/docs](https://prova-tecnica-1.onrender.com/api/docs)
 
 *(Nota: Como a aplicação está alojada no plano gratuito do Render, o primeiro acesso pode demorar cerca de 50 segundos a responder enquanto o servidor "desperta" da suspensão).*
 
@@ -96,4 +96,4 @@ O projeto foi desenvolvido sob os pilares da engenharia de software moderna, gar
 
 ## ⚠️ Observações Relevantes e Limitações Conhecidas
 - **Armazenamento Efémero na Nuvem (Limitação do Deploy):** O requisito funcional exige que o ficheiro seja armazenado localmente no servidor[cite: 1], o que foi estritamente implementado através do pacote Multer (guardando os anexos na pasta `/uploads`). No entanto, devido à limitação do plano gratuito na plataforma *Render*, o disco da máquina virtual é efémero. Isto significa que os ficheiros físicos perdem-se caso a máquina entre em modo de suspensão por inatividade. A persistência em base de dados (metadados e comentários), contudo, mantém-se totalmente operacional[cite: 1]. Ao correr o projeto localmente, os ficheiros persistem na pasta normalmente.
-- **Paginação:** Caso houvesse um prazo mais alargado, o próximo passo arquitetural seria implementar a paginação na listagem de documentos e de comentários para evitar sobrecarga no front-end em cenários de grande volume de dados.
+- **Paginação:** Caso houvesse um prazo mais alargado, o próximo passo arquitetural seria implementar a paginação na listagem de documentos e de comentários para evitar sobrecarga no front-end em cenários de grande volume de dados. 
