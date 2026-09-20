@@ -45,7 +45,7 @@ export async function addComment(documentId, comment) {
     const response = await fetch(`${API_BASE_URL}/documents/${documentId}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ comment })
+        body: JSON.stringify({ text: comment })
     });
     if (!response.ok) {
         throw new Error('Erro ao adicionar comentário');
