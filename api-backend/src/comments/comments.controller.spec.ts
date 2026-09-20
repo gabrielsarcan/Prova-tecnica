@@ -38,5 +38,30 @@ describe('CommentsController', () => {
       expect(service.addComment).toHaveBeenCalledWith(documentId, dto.text);
       expect(result.id).toBeDefined();
     });
+    it('should throw BadRequestException if text is empty', async () => {
+      const dto: CreateCommentDto = { text: '' };
+      const documentId = '1';
+
+      try {
+        await controller.addComment(documentId, dto);
+      } catch (e: any) {
+        expect(e.status).toBe(400);
+        expect(e.message).toBe('O comentário não pode ser vazio.');
+      }
+    });
+  });
+
+  describe('getComments', () => {
+    it('should call service.getComments and return an array of comments', async () => {
+      const documentId = '1';
+      const mockComments = [{ id: '1', text: 'Teste', createdAt: new Date() }];
+
+      jest.spyOn(service, 'getComments').mockResolvedValue(mockComments as any);
+
+      const result = await controller.getComments(documentId);
+
+      expect(service.getComments).toHaveBeenCalledWith(documentId);
+      expect(result).toEqual(mockComments);
+    });
   });
 });

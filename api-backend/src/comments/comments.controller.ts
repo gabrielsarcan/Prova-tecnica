@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Get,
   Param,
   Body,
   BadRequestException,
@@ -8,7 +9,6 @@ import {
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-
 @ApiTags('comments')
 @Controller('documents/:documentId/comments')
 export class CommentsController {
@@ -38,5 +38,21 @@ export class CommentsController {
       documentId,
       createCommentDto.text,
     );
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Listar todos os comentários de um documento' })
+  @ApiParam({
+    name: 'documentId',
+    description: 'ID do documento',
+    type: 'string',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de comentários retornada com sucesso.',
+  })
+  @ApiResponse({ status: 404, description: 'Documento não encontrado.' })
+  async getComments(@Param('documentId') documentId: string) {
+    return await this.commentsService.getComments(documentId);
   }
 }

@@ -55,4 +55,27 @@ describe('CommentsService', () => {
       ).rejects.toThrow(NotFoundException);
     });
   });
+
+  describe('getComments', () => {
+    it('should return comments for a given document', async () => {
+      const mockComments = [{ id: '1', text: 'Teste', createdAt: new Date() }];
+
+      jest
+        .spyOn(service['documentRepository'], 'findOne')
+        .mockResolvedValueOnce({ id: '1', title: 'Doc' } as any);
+      jest
+        .spyOn(service['commentRepository'], 'find')
+        .mockResolvedValueOnce(mockComments as any);
+
+      const result = await service.getComments('1');
+      expect(result).toEqual(mockComments);
+    });
+
+    it('should throw if document does not exist when getting comments', async () => {
+      jest
+        .spyOn(service['documentRepository'], 'findOne')
+        .mockResolvedValueOnce(null);
+      await expect(service.getComments('1')).rejects.toThrow(NotFoundException);
+    });
+  });
 });
