@@ -37,8 +37,8 @@ Certifique-se de que tem o [Node.js](https://nodejs.org/) (versão 18+), o [Dock
 
 **1. Clonar o repositório:**
 ```bash
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-cd SEU_REPOSITORIO
+git clone https://github.com/gabrielsarcan/Prova-tecnica.git
+cd Prova-tecnica
 ```
 
 **2. Navegar para a pasta do back-end e instalar as dependências:**
