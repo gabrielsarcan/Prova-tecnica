@@ -68,17 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
             clone.querySelector('.btn-view').addEventListener('click', () => {
                 window.open(`${API_BASE_URL}${doc.action}`, '_blank');
             });
-            clone.querySelector('.btn-download').addEventListener('click', () => {
-                const a = document.createElement('a');
-                a.href = `${API_BASE_URL}${doc.action}`;
-                // O header Content-Disposition que o backend envia (se existir)
-                // ou simplesmente abrir a aba para forçar o download. 
-                // A maioria dos browsers vai descarregar automaticamente ficheiros não suportados
-                a.download = doc.title || 'document';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
 
             // Lógica de comentários
             const commentsContainer = clone.querySelector('.document-comments');
