@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Documentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestão de Documentos</h1>
+        </header>
+
+        <section class="upload-section">
+            <h2>Novo Documento</h2>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label for="file-input">Selecione o ficheiro (Máx: 5MB)</label>
+                    <input type="file" id="file-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="initial-comment">Comentário Inicial (Opcional)</label>
+                    <input type="text" id="initial-comment" placeholder="Adicione um comentário ao documento...">
+                </div>
+                <button type="submit" id="upload-btn">Fazer Upload</button>
+                <div id="upload-error" class="error-message hidden"></div>
+            </form>
+        </section>
+
+        <section class="list-section">
+            <h2>Lista de Documentos</h2>
+            <div id="list-error" class="error-message hidden"></div>
+            <ul id="document-list" class="document-list">
+                <!-- Items gerados dinamicamente -->
+            </ul>
+        </section>
+    </div>
+
+    <!-- Template for a Document Item (hidden) -->
+    <template id="document-item-template">
+        <li class="document-item">
+            <div class="document-header">
+                <span class="document-name"></span>
+                <div class="document-actions">
+                    <button class="btn-view">Ver</button>
+                    <button class="btn-download">Download</button>
+                    <button class="btn-toggle-comments">Comentários</button>
+                </div>
+            </div>
+            <div class="document-comments hidden">
+                <ul class="comment-list"></ul>
+                <form class="comment-form">
+                    <input type="text" class="new-comment-input" placeholder="Novo comentário..." required>
+                    <button type="submit">Enviar</button>
+                </form>
+                <div class="comment-error error-message hidden"></div>
+            </div>
+        </li>
+    </template>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
