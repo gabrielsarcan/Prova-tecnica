@@ -46,17 +46,18 @@ export class DocumentsService {
     const uniqueFilename = `${Date.now()}-${safeFilename}`;
 
     const uploadDir = path.join(process.cwd(), 'uploads');
-    const filePath = path.join(uploadDir, uniqueFilename);
+    const relativePath = `uploads/${uniqueFilename}`;
+    const absolutePath = path.join(uploadDir, uniqueFilename);
 
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
-    fs.writeFileSync(filePath, file.buffer);
+    fs.writeFileSync(absolutePath, file.buffer);
 
     const newDocument = this.documentRepository.create({
       title,
       description,
-      filePath,
+      filePath: relativePath,
     });
 
     return await this.documentRepository.save(newDocument);
