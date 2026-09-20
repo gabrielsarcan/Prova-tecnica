@@ -1,3 +1,7 @@
+// ⚠️ ATENÇÃO: Para rodar no Render, mude esta variável para o link do seu backend no Render!
+// Exemplo: export const API_BASE_URL = 'https://seu-backend.onrender.com';
+export const API_BASE_URL = 'https://prova-tecnica-1.onrender.com';
+
 export function validateFile(file) {
     if (!file) {
         throw new Error('Nenhum ficheiro selecionado');
@@ -15,7 +19,7 @@ export async function uploadDocument(file, comment) {
     formData.append('file', file);
     if (comment) formData.append('comment', comment);
 
-    const response = await fetch('http://localhost:3000/documents', {
+    const response = await fetch(`${API_BASE_URL}/documents`, {
         method: 'POST',
         body: formData
     });
@@ -26,7 +30,7 @@ export async function uploadDocument(file, comment) {
 }
 
 export async function fetchDocuments() {
-    const response = await fetch('http://localhost:3000/documents');
+    const response = await fetch(`${API_BASE_URL}/documents`);
     if (!response.ok) {
         throw new Error('Erro ao buscar documentos');
     }
@@ -37,7 +41,7 @@ export async function addComment(documentId, comment) {
     if (!comment || comment.trim() === '') {
         throw new Error('O comentário não pode estar vazio');
     }
-    const response = await fetch(`http://localhost:3000/documents/${documentId}/comments`, {
+    const response = await fetch(`${API_BASE_URL}/documents/${documentId}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ comment })
