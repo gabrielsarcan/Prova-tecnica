@@ -46,15 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para carregar a lista do servidor
     async function loadDocuments() {
         try {
-            // Em ambiente real, descomente a linha abaixo e remova o mock
-            // const docs = await fetchDocuments();
-            
-            // Mock para visualização enquanto não ligamos à API real
-            const mockDocs = [
-                { id: 1, name: 'relatorio_final.pdf', url: '#', comments: ['Documento aprovado', 'Revisar página 2'] },
-                { id: 2, name: 'dados_financeiros.csv', url: '#', comments: [] }
-            ];
-            renderDocumentList(mockDocs);
+            // Chamada à API real
+            const docs = await fetchDocuments();
+            renderDocumentList(docs);
         } catch (error) {
             listError.textContent = error.message;
             listError.classList.remove('hidden');
@@ -68,17 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const clone = itemTemplate.content.cloneNode(true);
             const li = clone.querySelector('li');
             
-            clone.querySelector('.document-name').textContent = doc.name;
+            clone.querySelector('.document-name').textContent = doc.title || 'Sem título';
             
             // Botões de ação
             clone.querySelector('.btn-view').addEventListener('click', () => {
-                window.open(doc.url, '_blank');
+                alert('A visualização/download de arquivos não foi implementada no Backend.');
             });
             clone.querySelector('.btn-download').addEventListener('click', () => {
-                const a = document.createElement('a');
-                a.href = doc.url;
-                a.download = doc.name;
-                a.click();
+                alert('A visualização/download de arquivos não foi implementada no Backend.');
             });
 
             // Lógica de comentários
@@ -89,11 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const ulComments = clone.querySelector('.comment-list');
-            doc.comments.forEach(c => {
-                const liC = document.createElement('li');
-                liC.textContent = c;
-                ulComments.appendChild(liC);
-            });
+            if (doc.comments && Array.isArray(doc.comments)) {
+                doc.comments.forEach(c => {
+                    const liC = document.createElement('li');
+                    liC.textContent = c.text || c;
+                    ulComments.appendChild(liC);
+                });
+            }
 
             const commentForm = clone.querySelector('.comment-form');
             const commentError = clone.querySelector('.comment-error');
@@ -104,12 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = newCommentInput.value;
                 
                 try {
-                    // Em ambiente real, descomente:
-                    // await addComment(doc.id, text);
+                    // Chamada à API real
+                    const newComment = await addComment(doc.id, text);
                     
-                    // Atualização visual (mock)
+                    // Atualização visual
                     const liC = document.createElement('li');
-                    liC.textContent = text;
+                    liC.textContent = newComment.comment || text; // Pode depender de como a API devolve
                     ulComments.appendChild(liC);
                     newCommentInput.value = '';
                 } catch(error) {

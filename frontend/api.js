@@ -17,9 +17,10 @@ export async function uploadDocument(file, comment) {
     validateFile(file);
     const formData = new FormData();
     formData.append('file', file);
-    if (comment) formData.append('comment', comment);
+    formData.append('title', file.name); // O backend exige um título
+    if (comment) formData.append('description', comment); // O backend usa "description"
 
-    const response = await fetch(`${API_BASE_URL}/documents`, {
+    const response = await fetch(`${API_BASE_URL}/documents/upload`, {
         method: 'POST',
         body: formData
     });
