@@ -1,4 +1,4 @@
-import { uploadDocument, fetchDocuments, addComment } from './api.js';
+import { uploadDocument, fetchDocuments, addComment, API_BASE_URL } from './api.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const uploadForm = document.getElementById('upload-form');
@@ -66,10 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Botões de ação
             clone.querySelector('.btn-view').addEventListener('click', () => {
-                alert('A visualização/download de arquivos não foi implementada no Backend.');
+                window.open(`${API_BASE_URL}${doc.action}`, '_blank');
             });
             clone.querySelector('.btn-download').addEventListener('click', () => {
-                alert('A visualização/download de arquivos não foi implementada no Backend.');
+                const a = document.createElement('a');
+                a.href = `${API_BASE_URL}${doc.action}`;
+                // O header Content-Disposition que o backend envia (se existir)
+                // ou simplesmente abrir a aba para forçar o download. 
+                // A maioria dos browsers vai descarregar automaticamente ficheiros não suportados
+                a.download = doc.title || 'document';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
             });
 
             // Lógica de comentários

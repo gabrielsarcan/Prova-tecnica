@@ -6,7 +6,10 @@ import {
   UploadedFile,
   Body,
   BadRequestException,
+  Param,
+  Res,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -58,5 +61,20 @@ export class DocumentsController {
       createDocumentDto.title,
       createDocumentDto.description,
     );
+  }
+
+  @Get(':id/download')
+  @ApiOperation({ summary: 'Fazer download de um documento' })
+  @ApiResponse({
+    status: 200,
+    description: 'Download iniciado com sucesso.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Documento ou ficheiro não encontrado.',
+  })
+  async downloadDocument(@Param('id') id: string, @Res() res: Response) {
+    const absolutePath = await this.documentsService.getDocumentFilePath(id);
+    res.download(absolutePath);
   }
 }

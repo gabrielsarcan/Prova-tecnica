@@ -62,4 +62,22 @@ export class DocumentsService {
 
     return await this.documentRepository.save(newDocument);
   }
+
+  async getDocumentFilePath(id: string): Promise<string> {
+    const document = await this.documentRepository.findOne({ where: { id } });
+    if (!document) {
+      throw new BadRequestException(
+        'Documento não encontrado na base de dados.',
+      );
+    }
+
+    const absolutePath = path.join(process.cwd(), document.filePath);
+    if (!fs.existsSync(absolutePath)) {
+      throw new BadRequestException(
+        'O ficheiro físico não foi encontrado no servidor. Pode ter sido apagado.',
+      );
+    }
+
+    return absolutePath;
+  }
 }
