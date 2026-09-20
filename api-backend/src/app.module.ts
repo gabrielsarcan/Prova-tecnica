@@ -15,7 +15,7 @@ import { Document } from './document-upload/entities/document.entity';
       username: process.env.DB_USER || 'user',
       password: process.env.DB_PASSWORD || 'password',
       database: process.env.DB_NAME || 'document_db',
-      entities: [Document],
+      autoLoadEntities: true,
       synchronize: true, // Apenas para desenvolvimento (cria tabelas automaticamente)
     }),
     DocumentUploadModule,
