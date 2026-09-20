@@ -1,8 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import 'multer';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Document } from './entities/document.entity';
+import { Comment } from './entities/comment.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -11,7 +16,37 @@ export class DocumentUploadService {
   constructor(
     @InjectRepository(Document)
     private readonly documentRepository: Repository<Document>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
   ) {}
+
+  async findAllDocuments() {
+    const documents = await this.documentRepository.find({
+      order: { uploadDate: 'DESC' },
+    });
+    return documents.map((doc) => ({
+      title: doc.title,
+      uploadDate: doc.uploadDate,
+      action: `/documents/${doc.id}/download`,
+    }));
+  }
+
+  async addComment(documentId: string, text: string): Promise<Comment> {
+    const document = await this.documentRepository.findOne({
+      where: { id: documentId },
+    });
+
+    if (!document) {
+      throw new NotFoundException('Documento não encontrado.');
+    }
+
+    const comment = this.commentRepository.create({
+      text,
+      document,
+    });
+
+    return await this.commentRepository.save(comment);
+  }
 
   // A validação que criamos para o teste passar (GREEN)
   validateFileFormat(file: Express.Multer.File): boolean {

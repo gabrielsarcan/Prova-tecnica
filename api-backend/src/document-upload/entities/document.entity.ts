@@ -3,7 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Comment } from './comment.entity';
 
 @Entity('documents')
 export class Document {
@@ -21,4 +23,7 @@ export class Document {
 
   @Column({ name: 'file_path' })
   filePath: string;
+
+  @OneToMany(() => Comment, (comment) => comment.document)
+  comments: Comment[];
 }

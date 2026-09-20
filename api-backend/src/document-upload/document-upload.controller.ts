@@ -1,6 +1,8 @@
 import {
   Controller,
   Post,
+  Get,
+  Param,
   UseInterceptors,
   UploadedFile,
   Body,
@@ -13,6 +15,22 @@ import { DocumentUploadService } from './document-upload.service';
 @Controller('documents')
 export class DocumentUploadController {
   constructor(private readonly documentUploadService: DocumentUploadService) {}
+
+  @Get()
+  async listDocuments() {
+    return await this.documentUploadService.findAllDocuments();
+  }
+
+  @Post(':id/comments')
+  async addComment(
+    @Param('id') documentId: string,
+    @Body('text') text: string,
+  ) {
+    if (!text || text.trim() === '') {
+      throw new BadRequestException('O comentário não pode ser vazio.');
+    }
+    return await this.documentUploadService.addComment(documentId, text);
+  }
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file')) // Memória por padrão (buffer)
