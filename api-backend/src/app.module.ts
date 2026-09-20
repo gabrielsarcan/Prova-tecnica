@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DocumentUploadModule } from './document-upload/document-upload.module';
-import { Document } from './document-upload/entities/document.entity';
+import { DocumentsModule } from './documents/documents.module';
+import { CommentsModule } from './comments/comments.module';
+import { Document } from './documents/entities/document.entity';
+import { Comment } from './comments/entities/comment.entity';
 
 @Module({
   imports: [
@@ -18,7 +20,8 @@ import { Document } from './document-upload/entities/document.entity';
       autoLoadEntities: true,
       synchronize: true, // Apenas para desenvolvimento (cria tabelas automaticamente)
     }),
-    DocumentUploadModule,
+    DocumentsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Document } from './document.entity';
+import { Document } from '../../documents/entities/document.entity';
 
 @Entity('comments')
 export class Comment {
