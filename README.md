@@ -1,7 +1,7 @@
 # 📄 Gestão de Documentos - Prova Técnica Full Stack
 
 ## 🎯 Descrição Resumida do Projeto
-Esta aplicação web foi desenvolvida como solução para o desafio técnico da vaga de Estágio em Desenvolvimento Full Stack[cite: 1]. Consiste num sistema simples de gestão de documentos que permite aos utilizadores anexar ficheiros (PDF, JPG, PNG)[cite: 1], visualizar os documentos submetidos e interagir através de um histórico de comentários com registo preciso de data e hora[cite: 1].
+Esta aplicação web foi desenvolvida como solução para o desafio técnico da vaga de Estágio em Desenvolvimento Full Stack. Consiste num sistema simples de gestão de documentos que permite aos utilizadores anexar ficheiros (PDF, JPG, PNG), visualizar os documentos submetidos e interagir através de um histórico de comentários com registo preciso de data e hora.
 
 A aplicação foi construída com foco em boas práticas de engenharia de software, incluindo a aplicação de Test-Driven Development (TDD) para regras críticas de negócio e uma arquitetura em camadas.
 
@@ -15,17 +15,17 @@ A aplicação foi construída com foco em boas práticas de engenharia de softwa
 **Back-end:**
 - Node.js com o framework **NestJS** (TypeScript)
 - **TypeORM** para mapeamento objeto-relacional (ORM)
-- **PostgreSQL** como base de dados relacional[cite: 1]
+- **PostgreSQL** como base de dados relacional
 - **Jest** para testes unitários e aplicação de TDD
 - **Swagger** (`@nestjs/swagger`) para documentação interativa da API
 
 **Front-end:**
-- HTML5, CSS3 e JavaScript (Vanilla)[cite: 1]
-- Integração com a API via `fetch` (sem frameworks adicionais, conforme exigência)[cite: 1]
+- HTML5, CSS3 e JavaScript (Vanilla)
+- Integração com a API via `fetch` (sem frameworks adicionais, conforme exigência)
 
 **Infraestrutura e Qualidade:**
 - **Docker e Docker Compose** (apenas para ambiente local da base de dados)
-- **Git** com padrão *Conventional Commits*[cite: 1]
+- **Git** com padrão *Conventional Commits*
 - **Oxlint, Prettier e Husky** para garantia de qualidade do código no pré-commit
 - **Render** (Cloud Application Hosting) para o deploy
 
@@ -95,5 +95,5 @@ O projeto foi desenvolvido sob os pilares da engenharia de software moderna, gar
 - **Tratamento de Fuso Horário:** A variável de ambiente `TZ=UTC` garante que o carimbo de data e hora dos comentários não sofra divergências independentemente da localização geográfica do servidor onde a aplicação é executada.
 
 ## ⚠️ Observações Relevantes e Limitações Conhecidas
-- **Armazenamento Efémero na Nuvem (Limitação do Deploy):** O requisito funcional exige que o ficheiro seja armazenado localmente no servidor[cite: 1], o que foi estritamente implementado através do pacote Multer (guardando os anexos na pasta `/uploads`). No entanto, devido à limitação do plano gratuito na plataforma *Render*, o disco da máquina virtual é efémero. Isto significa que os ficheiros físicos perdem-se caso a máquina entre em modo de suspensão por inatividade. A persistência em base de dados (metadados e comentários), contudo, mantém-se totalmente operacional[cite: 1]. Ao correr o projeto localmente, os ficheiros persistem na pasta normalmente.
+- **Armazenamento Efémero na Nuvem (Limitação do Deploy):** O requisito funcional exige que o ficheiro seja armazenado localmente no servidor, o que foi estritamente implementado através do pacote Multer (guardando os anexos na pasta `/uploads`). No entanto, devido à limitação do plano gratuito na plataforma *Render*, o disco da máquina virtual é efémero. Isto significa que os ficheiros físicos perdem-se caso a máquina entre em modo de suspensão por inatividade. A persistência em base de dados (metadados e comentários), contudo, mantém-se totalmente operacional. Ao correr o projeto localmente, os ficheiros persistem na pasta normalmente.
 - **Paginação:** Caso houvesse um prazo mais alargado, o próximo passo arquitetural seria implementar a paginação na listagem de documentos e de comentários para evitar sobrecarga no front-end em cenários de grande volume de dados. 
